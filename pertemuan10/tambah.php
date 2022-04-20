@@ -25,6 +25,15 @@
         mysqli_query($conn, $query);
         
     }
+
+    // cek apakah data berhasil ditambah atau tidak
+    if(mysqli_affected_rows($conn) > 0) {
+        echo 'Berhasil';
+    }else{
+        echo 'Gagal';
+        echo '<br>';
+        echo mysqli_error($conn);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
