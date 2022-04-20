@@ -34,7 +34,7 @@
             <td><?= $i ?></td>
             <td>
                 <a href="">Ubah</a> |
-                <a href="">Hapus</a>
+                <a href="hapus.php?id=<?= $row["id"]?>" onclick="return confirm('yakin?')">Hapus</a>
             </td>
             <td><img src="img/<?= $row["gambar"] ?>" alt="" width="50"></td>
             <td><?= $row["judulBuku"] ?></td>

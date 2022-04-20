@@ -1,39 +1,28 @@
 <?php 
-    // koneksi ke database
-    $conn = mysqli_connect("localhost", "root", "", "phpdasar");
+    require 'functions.php';
 
-    function query($query) {
-        global $conn;
-        $result = mysqli_query($conn, $query);
-        $rows = [];
-        while( $row = mysqli_fetch_assoc($result) ) {
-            $rows[] = $row;
-        }
-        return $rows;
-    }
-    // cek tombol submit sudah ditekan atau belum
     if( isset($_POST["submit"]) ) {
-        // ambil data dari form
-        $judulBuku = $_POST["judulBuku"];
-        $pengarang = $_POST["pengarang"];
-        $tanggalTerbit = $_POST["tanggalTerbit"];
-        $penerbit = $_POST["penerbit"];
-        $gambar = $_POST["gambar"];
-
-        // quwery insert data
-        $query = "INSERT INTO buku VALUES ('', '$judulBuku', '$pengarang', '$tanggalTerbit', '$penerbit', '$gambar')";
-        mysqli_query($conn, $query);
+        
+        // cek apakah data berhasil ditambah atau tidak
+        if(tambah($_POST) > 0){
+            echo "
+                <script>
+                    alert('data berhasil ditambahkan!');
+                    document.location.href = 'index.php';
+                </script>
+            ";
+        }else{
+            echo "
+                <script>
+                    alert('data gagal ditambahkan!');
+                    document.location.href = 'index.php';
+                </script>
+            ";
+        }
+        
         
     }
-
-    // cek apakah data berhasil ditambah atau tidak
-    if(mysqli_affected_rows($conn) > 0) {
-        echo 'Berhasil';
-    }else{
-        echo 'Gagal';
-        echo '<br>';
-        echo mysqli_error($conn);
-    }
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +39,7 @@
         <ul>
             <li>
                 <label for="judulBuku">Judul Buku : </label>
-                <input type="text" name="judulBuku" id="judulBuku">
+                <input type="text" name="judulBuku" id="judulBuku" required>
             </li>
             <li>
                 <label for="pengarang">Pengarang : </label>
